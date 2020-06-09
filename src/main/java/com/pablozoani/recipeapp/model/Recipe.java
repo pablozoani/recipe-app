@@ -13,6 +13,10 @@ public class Recipe {
 
     // == fields ==
 
+    @Id @Getter
+    @GeneratedValue(generator = "native")
+    protected Long id;
+
     @Getter @Setter
     @Column(name = "description", nullable = false)
     protected String description;

@@ -3,9 +3,7 @@ package com.pablozoani.recipeapp.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +12,10 @@ import java.util.Set;
 public class Category {
 
     // == fields ==
+
+    @Id @Getter
+    @GeneratedValue(generator = "native")
+    protected Long id;
 
     @Getter @Setter
     @Column(name = "category_name", nullable = false, unique = true)
