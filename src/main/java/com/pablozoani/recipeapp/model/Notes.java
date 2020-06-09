@@ -15,11 +15,13 @@ public class Notes {
     @GeneratedValue(generator = "native")
     protected Long id;
 
-    @Getter @Setter
-    @Column(name = "notes", nullable = false)
-    protected String notes;
+    @Getter @Setter @Lob
+    @Column(name = "recipe_notes", nullable = false)
+    protected String recipeNotes;
 
     // == relationships ==
 
+    @Getter @Setter
+    @OneToOne(mappedBy = "notes")
     protected Recipe recipe;
 }

@@ -50,13 +50,15 @@ public class Recipe {
     @Enumerated(EnumType.STRING)
     protected Difficulty difficulty;
 
-    @Getter @Setter
+    @Getter @Setter @Lob
     @Column(name = "image")
     protected Byte[] image;
 
     // == relationships ==
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     protected Notes notes;
+
     protected Set<Ingredient> ingredients = new HashSet<>();
     protected Set<Category> categories = new HashSet<>();
 }
