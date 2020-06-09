@@ -1,7 +1,9 @@
 package com.pablozoani.recipeapp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,20 +12,47 @@ import java.util.Set;
 public class Recipe {
 
     // == fields ==
-    private String description;
-    private String prepTime;
-    private String cookTime;
-    private Integer servings;
-    private String source;
-    private String url;
-    private String directions;
-    private Difficulty difficulty;
-    private Byte[] image;
+
+    @Getter @Setter
+    @Column(name = "description", nullable = false)
+    protected String description;
+
+    @Getter @Setter
+    @Column(name = "preparation_time", nullable = false)
+    protected String prepTime;
+
+    @Getter @Setter
+    @Column(name = "cook_time")
+    protected String cookTime;
+
+    @Getter @Setter
+    @Column(name = "servings")
+    protected Integer servings;
+
+    @Getter @Setter
+    @Column(name = "source")
+    protected String source;
+
+    @Getter @Setter
+    @Column(name = "url")
+    protected String url;
+
+    @Getter @Setter
+    @Column(name = "directions", nullable = false)
+    protected String directions;
+
+    @Getter @Setter
+    @Column(name = "difficulty", nullable = false)
+    @Enumerated(EnumType.STRING)
+    protected Difficulty difficulty;
+
+    @Getter @Setter
+    @Column(name = "image")
+    protected Byte[] image;
 
     // == relationships ==
-    private Notes notes;
-    private Set<Ingredient> ingredients = new HashSet<>();
-    private Set<Category> categories = new HashSet<>();
 
-
+    protected Notes notes;
+    protected Set<Ingredient> ingredients = new HashSet<>();
+    protected Set<Category> categories = new HashSet<>();
 }

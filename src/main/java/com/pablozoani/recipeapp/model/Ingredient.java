@@ -1,5 +1,9 @@
 package com.pablozoani.recipeapp.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.math.BigDecimal;
@@ -9,10 +13,17 @@ import java.math.BigDecimal;
 public class Ingredient {
 
     // == fields ==
-    private String description;
-    private BigDecimal amount;
+
+    @Getter @Setter
+    @Column(name = "description", nullable = false)
+    protected String description;
+
+    @Getter @Setter
+    @Column(name = "amount", nullable = false)
+    protected BigDecimal amount;
 
     // == relationships ==
-    private Recipe recipe;
-    private UnitOfMeasure unitOfMeasure;
+
+    protected Recipe recipe;
+    protected UnitOfMeasure unitOfMeasure;
 }

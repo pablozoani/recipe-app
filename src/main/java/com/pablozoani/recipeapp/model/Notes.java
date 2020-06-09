@@ -1,5 +1,9 @@
 package com.pablozoani.recipeapp.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -8,8 +12,12 @@ import javax.persistence.Table;
 public class Notes {
 
     // == fields ==
-    private String notes;
+
+    @Getter @Setter
+    @Column(name = "notes", nullable = false)
+    protected String notes;
 
     // == relationships ==
-    private Recipe recipe;
+
+    protected Recipe recipe;
 }

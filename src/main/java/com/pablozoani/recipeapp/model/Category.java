@@ -1,5 +1,9 @@
 package com.pablozoani.recipeapp.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.HashSet;
@@ -10,8 +14,12 @@ import java.util.Set;
 public class Category {
 
     // == fields ==
-    private String categoryName;
+
+    @Getter @Setter
+    @Column(name = "category_name", nullable = false, unique = true)
+    protected String categoryName;
 
     // == relationships ==
-    private Set<Recipe> recipes = new HashSet<>();
+
+    protected Set<Recipe> recipes = new HashSet<>();
 }
