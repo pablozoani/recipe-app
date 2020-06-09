@@ -17,15 +17,20 @@ public class Ingredient {
     protected Long id;
 
     @Getter @Setter
-    @Column(name = "description", nullable = false)
+    @Column(nullable = false)
     protected String description;
 
     @Getter @Setter
-    @Column(name = "amount", nullable = false)
+    @Column(nullable = false)
     protected BigDecimal amount;
 
     // == relationships ==
 
+    @Getter @Setter
+    @ManyToOne
     protected Recipe recipe;
+
+    @Getter @Setter
+    @OneToOne
     protected UnitOfMeasure unitOfMeasure;
 }

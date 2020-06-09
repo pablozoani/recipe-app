@@ -18,7 +18,7 @@ public class Recipe {
     protected Long id;
 
     @Getter @Setter
-    @Column(name = "description", nullable = false)
+    @Column(nullable = false)
     protected String description;
 
     @Getter @Setter
@@ -30,35 +30,40 @@ public class Recipe {
     protected String cookTime;
 
     @Getter @Setter
-    @Column(name = "servings")
     protected Integer servings;
 
     @Getter @Setter
-    @Column(name = "source")
     protected String source;
 
     @Getter @Setter
-    @Column(name = "url")
     protected String url;
 
     @Getter @Setter
-    @Column(name = "directions", nullable = false)
+    @Column(nullable = false)
     protected String directions;
 
     @Getter @Setter
-    @Column(name = "difficulty", nullable = false)
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     protected Difficulty difficulty;
 
     @Getter @Setter @Lob
-    @Column(name = "image")
     protected Byte[] image;
 
     // == relationships ==
 
+    @Getter @Setter
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     protected Notes notes;
 
+    @Getter @Setter
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "recipe")
     protected Set<Ingredient> ingredients = new HashSet<>();
+
+    @Getter @Setter
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "recipe_category",
+               joinColumns = @JoinColumn(name = "recipe_id"),
+               inverseJoinColumns = @JoinColumn(name = "category_id"))
     protected Set<Category> categories = new HashSet<>();
 }

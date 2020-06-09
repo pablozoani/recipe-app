@@ -23,5 +23,7 @@ public class Category {
 
     // == relationships ==
 
+    @Getter @Setter
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "categories")
     protected Set<Recipe> recipes = new HashSet<>();
 }
