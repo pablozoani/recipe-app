@@ -5,5 +5,9 @@ import java.util.Set;
 
 public class Category {
 
+    // == fields ==
+    private String categoryName;
+
+    // == relationships ==
     private Set<Recipe> recipes = new HashSet<>();
 }
