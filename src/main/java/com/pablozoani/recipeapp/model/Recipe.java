@@ -1,8 +1,12 @@
 package com.pablozoani.recipeapp.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "recipe")
 public class Recipe {
 
     // == fields ==
@@ -20,4 +24,6 @@ public class Recipe {
     private Notes notes;
     private Set<Ingredient> ingredients = new HashSet<>();
     private Set<Category> categories = new HashSet<>();
+
+
 }
