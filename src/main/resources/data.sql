@@ -4,4 +4,5 @@ INSERT INTO category (category_name)
 
 INSERT INTO unit_of_measure (unit_of_measure)
     VALUES
-        ('Teaspoon'), ('Tablespoon'), ('Cup'), ('Pinch'), ('Ounce');
+        ('Teaspoon'), ('Tablespoon'), ('Cups'), ('Pinch'), ('Ounce'), ('Units'),
+        ('Dash');

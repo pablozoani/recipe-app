@@ -24,4 +24,9 @@ public class Notes {
     @Getter @Setter
     @OneToOne(mappedBy = "notes")
     protected Recipe recipe;
+
+    public Notes setRecipeNotes(String recipeNotes) {
+        this.recipeNotes = recipeNotes;
+        return this;
+    }
 }
