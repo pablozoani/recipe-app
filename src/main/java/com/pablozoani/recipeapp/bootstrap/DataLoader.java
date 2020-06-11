@@ -7,13 +7,16 @@ import com.pablozoani.recipeapp.model.Recipe;
 import com.pablozoani.recipeapp.repository.CategoryRepository;
 import com.pablozoani.recipeapp.repository.RecipeRepository;
 import com.pablozoani.recipeapp.repository.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
+@Slf4j
 @Component
 public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -35,6 +38,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         saveRecipes();
     }
 
+    @Transactional
     private void saveRecipes() {
 
         // == Guacamole ==

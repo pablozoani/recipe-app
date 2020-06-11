@@ -1,71 +1,71 @@
 package com.pablozoani.recipeapp.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Data
 @Entity
 @Table(name = "recipe")
 public class Recipe {
 
     // == fields ==
 
-    @Id @Getter
+    @Id
     @GeneratedValue(generator = "native")
     protected Long id;
 
-    @Getter @Setter
     @Column(nullable = false)
     protected String description;
 
-    @Getter @Setter
     @Column(name = "preparation_time", nullable = false)
     protected String prepTime;
 
-    @Getter @Setter
     @Column(name = "cook_time")
     protected String cookTime;
 
-    @Getter @Setter
     protected Integer servings;
 
-    @Getter @Setter
     protected String source;
 
-    @Getter @Setter
     protected String url;
 
-    @Getter @Setter @Lob
+    @Lob
     @Column(nullable = false)
     protected String directions;
 
-    @Getter @Setter
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     protected Difficulty difficulty;
 
-    @Getter @Setter @Lob
+    @Lob
     protected Byte[] image;
 
     // == relationships ==
 
-    @Getter @Setter
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     protected Notes notes;
 
-    @Getter
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "recipe")
     protected Set<Ingredient> ingredients = new HashSet<>();
 
-    @Getter
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "recipe_category",
                joinColumns = @JoinColumn(name = "recipe_id"),
                inverseJoinColumns = @JoinColumn(name = "category_id"))
     protected Set<Category> categories = new HashSet<>();
+
+    public Recipe setNotes(@NonNull Notes notes) {
+        if (notes.getRecipe() != null) {
+            throw new RuntimeException("this note belongs to a recipe");
+        }
+        this.notes = notes;
+        notes.setRecipe(this);
+        return this;
+    }
 
     public Recipe addIngredients(Ingredient... ingredients) {
         for (Ingredient ingredient : ingredients) {

@@ -1,27 +1,28 @@
 package com.pablozoani.recipeapp.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
+@Data
+@EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 @Table(name = "notes")
 public class Notes {
 
     // == fields ==
 
-    @Id @Getter
+    @Id
     @GeneratedValue(generator = "native")
     protected Long id;
 
-    @Getter @Setter @Lob
+    @Lob
     @Column(name = "recipe_notes", nullable = false)
     protected String recipeNotes;
 
     // == relationships ==
 
-    @Getter @Setter
     @OneToOne(mappedBy = "notes")
     protected Recipe recipe;
 
@@ -29,4 +30,6 @@ public class Notes {
         this.recipeNotes = recipeNotes;
         return this;
     }
+
+    private void setId(Long id) {}
 }
