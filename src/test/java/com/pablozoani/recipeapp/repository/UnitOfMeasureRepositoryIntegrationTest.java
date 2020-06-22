@@ -33,4 +33,10 @@ class UnitOfMeasureRepositoryIntegrationTest {
         Optional<UnitOfMeasure> unitOfMeasureOptional = unitOfMeasureRepository.findByUnitOfMeasure("Cups");
         assertEquals("Cups", unitOfMeasureOptional.get().getUnitOfMeasure());
     }
+
+    @Test
+    void findByUnitOfMeasureTeaspoon() {
+        Optional<UnitOfMeasure> unitOfMeasureOptional = unitOfMeasureRepository.findByUnitOfMeasure("Teaspoon");
+        assertEquals("Teaspoon", unitOfMeasureOptional.get().getUnitOfMeasure());
+    }
 }
