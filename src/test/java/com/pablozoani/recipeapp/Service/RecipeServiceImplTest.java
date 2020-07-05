@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,6 +30,17 @@ class RecipeServiceImplTest {
 
     @AfterEach
     void tearDown() {
+    }
+
+    @Test
+    void getRecipesById() {
+        Recipe recipe = new Recipe();
+        recipe.setId(20l);
+        Optional<Recipe> recipeOptional = Optional.of(recipe);
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+        Recipe recipe2 = recipeService.findById(20l);
+        assertEquals(recipe, recipe2);
+        verify(recipeRepository, times(1)).findById(anyLong());
     }
 
     @Test

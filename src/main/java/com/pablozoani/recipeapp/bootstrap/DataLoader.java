@@ -64,7 +64,8 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         onion.setDescription("Minced Red Onion");
 
         Recipe perfectGuacamole = new Recipe();
-        perfectGuacamole.addCategories(categoryRepository.findByCategoryName("Mexican").get());
+        perfectGuacamole.addCategories(categoryRepository.findByCategoryName("Mexican").get(),
+                                       categoryRepository.findByCategoryName("Fast Food").get());
         perfectGuacamole.addIngredients(avocados, salt, limeJuice, onion);
         perfectGuacamole.setPrepTime("10 minutes");
         perfectGuacamole.setServings(4);
@@ -116,7 +117,8 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
         Recipe grilledChicken = new Recipe();
         grilledChicken.setDescription("Grilled Chicken");
-        grilledChicken.addCategories(categoryRepository.findByCategoryName("Fast Food").get());
+        grilledChicken.addCategories(categoryRepository.findByCategoryName("Fast Food").get(),
+                                     categoryRepository.findByCategoryName("Italian").get());
         grilledChicken.setCookTime("15 Minutes");
         grilledChicken.setPrepTime("20 Minutes");
         grilledChicken.setNotes(new Notes().setRecipeNotes(
