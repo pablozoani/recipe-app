@@ -30,6 +30,4 @@ public class Notes {
         this.recipeNotes = recipeNotes;
         return this;
     }
-
-    private void setId(Long id) {}
 }

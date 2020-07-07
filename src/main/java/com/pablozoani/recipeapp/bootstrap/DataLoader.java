@@ -21,7 +21,9 @@ import java.math.BigDecimal;
 public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     private final CategoryRepository categoryRepository;
+
     private final UnitOfMeasureRepository unitOfMeasureRepository;
+
     private final RecipeRepository recipeRepository;
 
     @Autowired

@@ -1,13 +1,15 @@
 package com.pablozoani.recipeapp.model;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "recipe")
 public class Recipe {
@@ -83,5 +85,20 @@ public class Recipe {
             this.categories.add(category);
         }
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+               "id=" + id +
+               ", description='" + description + '\'' +
+               ", prepTime='" + prepTime + '\'' +
+               ", cookTime='" + cookTime + '\'' +
+               ", servings=" + servings +
+               ", source='" + source + '\'' +
+               ", url='" + url + '\'' +
+               ", directions='" + directions + '\'' +
+               ", difficulty=" + difficulty +
+               '}';
     }
 }
