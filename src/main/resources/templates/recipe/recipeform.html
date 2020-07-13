@@ -19,17 +19,17 @@
 <body>
     <div class="container-fluid" style="margin-top: 20px;">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-6 offset-md-3">
                 <form th:object="${recipe}" th:action="@{/recipe/}" method="POST">
                     <input type="hidden" th:field="*{id}" />
-                    <div class="panel-group">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h1 class="panel-title">
+                    <div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h1 class="card-title">
                                     Edit Recipe Information
                                 </h1>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-3 form-group">
                                         <label>
@@ -46,10 +46,8 @@
                                     </div>
                                     <div class="col-md-9 form-group">
                                         <div class="radio">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                Cat 1
-                                            </label>
+                                            <input id="check1" type="checkbox" value="">
+                                            <label for="check1">Cat 1</label>
                                         </div>
                                         <div class="radio" th:remove="all">
                                             <label>
@@ -70,7 +68,7 @@
                                         <label>
                                             Cook Time:
                                         </label>
-                                        <input type="text" class="form-control" th:field="*{cookTime" }>
+                                        <input type="text" class="form-control" th:field="*{cookTime}">
                                     </div>
                                     <div class="col-md-3 form-group">
                                         <label>
@@ -111,22 +109,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
+                        <div class="card">
+                            <div class="card-header">
                                 <div class="row">
-                                    <div class="col-md-11">
-                                        <h1 class="panel-title">
+                                    <div class="col-md-10">
+                                        <h1 class="card-title">
                                             Ingredients
                                         </h1>
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-2 align-self-center">
                                         <a class="btn btn-default" href="#" role="button">
                                             Edit
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <ul>
@@ -146,18 +144,32 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h1 class="panel-title">
+                        <div class="card">
+                            <div class="card-header">
+                                <h1 class="card-title">
                                     Directions
                                 </h1>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12 form-group">
-                                        <textarea class="form-control" rows="3" th:field="*{notes.recipeNotes}">
+                                        <textarea class="form-control" rows="3" th:field="*{directions}">
 
                                         </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h1 class="card-title">
+                                    Notes
+                                </h1>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 form-group">
+                                        <textarea class="form-control" rows="3" th:field="*{notes.recipeNotes}"></textarea>
                                     </div>
                                 </div>
                             </div>

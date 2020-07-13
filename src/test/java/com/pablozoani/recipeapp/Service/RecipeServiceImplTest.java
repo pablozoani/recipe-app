@@ -25,7 +25,7 @@ class RecipeServiceImplTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, null, null);
     }
 
     @AfterEach
@@ -54,5 +54,12 @@ class RecipeServiceImplTest {
         Set<Recipe> recipes = recipeService.getRecipes();
         assertEquals(1, recipes.size());
         verify(recipeRepository, times(1)).findAll();
+    }
+
+    @Test
+    void deleteById() {
+        Long id = 3L;
+        recipeService.deleteById(id);
+        verify(recipeRepository, times(1)).deleteById(anyLong());
     }
 }

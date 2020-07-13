@@ -39,7 +39,6 @@ public class Recipe {
     @Column(nullable = false)
     protected String directions;
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     protected Difficulty difficulty;
 

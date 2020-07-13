@@ -25,6 +25,9 @@ public class IngredientToCommand implements Converter<Ingredient, IngredientComm
         if (source == null) return null;
         final IngredientCommand output = new IngredientCommand();
         output.setId(source.getId());
+        if (source.getRecipe() != null) {
+            output.setRecipeId(source.getRecipe().getId());
+        }
         output.setDescription(source.getDescription());
         output.setAmount(source.getAmount());
         output.setUnitOfMeasure(unitOfMeasureToCommand.convert(source.getUnitOfMeasure()));

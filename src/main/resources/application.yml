@@ -5,6 +5,11 @@ spring:
     username: sa
     password:
   jpa:
-    show-sql: true
+    show-sql: false
     properties:
       hibernate.format_sql: true
+logging:
+  level:
+    com:
+      pablozoani:
+        recipeapp: "debug"

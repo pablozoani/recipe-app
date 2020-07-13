@@ -2,8 +2,10 @@ package com.pablozoani.recipeapp.converter.tocommand;
 
 import com.pablozoani.recipeapp.command.RecipeCommand;
 import com.pablozoani.recipeapp.model.Recipe;
+import lombok.Synchronized;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,6 +26,8 @@ public class RecipeToCommand implements Converter<Recipe, RecipeCommand> {
         this.ingredientToCommand = ingredientToCommand;
     }
 
+    @Synchronized
+    @Nullable
     @Override
     public RecipeCommand convert(Recipe source) {
         if (source == null) return null;
