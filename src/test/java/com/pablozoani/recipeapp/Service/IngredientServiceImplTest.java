@@ -1,14 +1,19 @@
 package com.pablozoani.recipeapp.Service;
 
 import com.pablozoani.recipeapp.command.IngredientCommand;
+import com.pablozoani.recipeapp.command.UnitOfMeasureCommand;
+import com.pablozoani.recipeapp.converter.fromcommand.CommandToIngredient;
+import com.pablozoani.recipeapp.converter.fromcommand.CommandToUnitOfMeasure;
 import com.pablozoani.recipeapp.converter.tocommand.IngredientToCommand;
 import com.pablozoani.recipeapp.converter.tocommand.UnitOfMeasureToCommand;
 import com.pablozoani.recipeapp.model.Ingredient;
 import com.pablozoani.recipeapp.model.Recipe;
 import com.pablozoani.recipeapp.repository.RecipeRepository;
+import com.pablozoani.recipeapp.repository.UnitOfMeasureRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
@@ -25,13 +30,20 @@ class IngredientServiceImplTest {
 
     IngredientToCommand ingredientToCommand;
 
+    CommandToIngredient commandToIngredient;
+
+    @Mock
+    UnitOfMeasureRepository unitOfMeasureRepository;
+
     IngredientService ingredientService;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
         ingredientToCommand = new IngredientToCommand(new UnitOfMeasureToCommand());
-        ingredientService = new IngredientServiceImpl(recipeRepository, ingredientToCommand);
+        commandToIngredient = new CommandToIngredient(new CommandToUnitOfMeasure());
+        ingredientService = new IngredientServiceImpl(recipeRepository, ingredientToCommand, commandToIngredient,
+                                                      unitOfMeasureRepository);
     }
 
     @Test
@@ -54,5 +66,28 @@ class IngredientServiceImplTest {
         assertEquals(ingredientCommand.getId(), 3L);
         assertEquals(ingredientCommand.getRecipeId(), 1L);
         verify(recipeRepository, times(1)).findById(anyLong());
+    }
+
+    @Test
+    void saveIngredientCommand() {
+        IngredientCommand input = new IngredientCommand();
+        input.setId(7L);
+        UnitOfMeasureCommand uomC = new UnitOfMeasureCommand();
+        uomC.setId(29L);
+        input.setUnitOfMeasure(uomC);
+        Recipe r = new Recipe();
+        r.setId(17L);
+        input.setRecipeId(17L);
+        r.addIngredients(commandToIngredient.convert(input));
+
+        Mockito.when(recipeRepository.findById(anyLong())).thenReturn(Optional.of(r));
+        Mockito.when(recipeRepository.save(any())).thenReturn(r);
+        Mockito.when(unitOfMeasureRepository.findById(anyLong()))
+               .thenReturn(Optional.of(new CommandToUnitOfMeasure().convert(uomC)));
+
+        IngredientCommand output = ingredientService.saveIngredientCommand(input);
+
+        assertEquals(r.getIngredients().iterator().next().getId(), output.getId());
+        assertEquals(17L, output.getRecipeId());
     }
 }

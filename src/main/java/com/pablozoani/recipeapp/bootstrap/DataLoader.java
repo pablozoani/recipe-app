@@ -71,7 +71,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         perfectGuacamole.addIngredients(avocados, salt, limeJuice, onion);
         perfectGuacamole.setPrepTime("10 minutes");
         perfectGuacamole.setServings(4);
-        perfectGuacamole.setCookTime("0");
+        perfectGuacamole.setCookTime("15 minutes");
         perfectGuacamole.setDescription("Perfect Guacamole");
         perfectGuacamole.setNotes(new Notes().setRecipeNotes(
             "The best guacamole keeps it simple: just ripe avocados, salt, a squeeze of lime, onions, chiles, cilantro, and some chopped tomato. Serve it as a dip at your next party or spoon it on top of tacos for an easy dinner upgrade. "));

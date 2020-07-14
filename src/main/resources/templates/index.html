@@ -24,20 +24,18 @@
 
 <body>
 
-<div class="container-fluid" style="margin-top: 20px">
+<div class="container-fluid" style="margin-top: 1rem;">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <div class="card text-white bg-primary">
+            <div class="card">
                 <div class="card-header">
                     <div class="row">
-
                         <div class="col-md-8">
                             <h1 class="card-title" th:text="'My Recipes'">My
                                 Recipes</h1>
                         </div>
                         <div class="col-md-4 align-self-center text-right">
-                            <a href="#" role="button" class="text-white"
-                               style="text-decoration: underline;"
+                            <a href="#" role="button"
                                th:href="@{/recipe/new}">New</a>
                         </div>
                     </div>
@@ -45,7 +43,7 @@
                 <div class="card-body">
                     <div class="table-responsive"
                          th:if="${not #lists.isEmpty(recipes)}">
-                        <table class="table table-hover text-white">
+                        <table class="table table-hover">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -61,23 +59,20 @@
                                     Description
                                 </td>
                                 <td>
-                                    <a href="#" class="text-white"
-                                       style="text-decoration: underline"
+                                    <a href="#"
                                        th:href="@{'/recipe/' + ${recipe.id} + '/show'}"
                                        role="button">
                                         view
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="#" class="text-white"
-                                       style="text-decoration: underline"
+                                    <a href="#"
                                        th:href="@{'/recipe/' + ${recipe.id} + '/update'}">
                                         update
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="#" class="text-white"
-                                       style="text-decoration: underline"
+                                    <a href="#"
                                        th:href="@{'/recipe/' + ${recipe.id} + '/delete'}">
                                         delete
                                     </a>

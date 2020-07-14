@@ -96,7 +96,6 @@ public class Recipe {
                ", servings=" + servings +
                ", source='" + source + '\'' +
                ", url='" + url + '\'' +
-               ", directions='" + directions + '\'' +
                ", difficulty=" + difficulty +
                '}';
     }

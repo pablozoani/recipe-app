@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="1">
     <title>
         Edit Ingredient
     </title>
@@ -20,8 +19,53 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row">
-
+    <div class="row" style="margin-top: 1rem;">
+        <div class="col-md-6 offset-md-3">
+            <form method="POST" th:object="${ingredient}"
+                  th:action="@{'/recipe/' + ${ingredient.getRecipeId()} + '/ingredient'}">
+                <input type="hidden" th:field="*{id}">
+                <div>
+                    <div class="card" style="margin-bottom: 1rem;">
+                        <div class="card-header">
+                            <h1 class="card-title">
+                                Edit Ingredient Information
+                            </h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-5 form-group">
+                                    <label for="description">Description:</label>
+                                    <input type="text" id="description"
+                                           class="form-control"
+                                           th:field="*{description}">
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label for="amount">Amount:</label>
+                                    <input type="number" id="amount"
+                                           class="form-control"
+                                           th:field="*{amount}">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="unitOfMeasure">Unit of
+                                        measure:</label>
+                                    <select id="unitOfMeasure"
+                                            class="form-control"
+                                            name="unitOfMeasure.id">
+                                        <option th:each="uom : ${unitOfMeasureList}"
+                                                th:value="${uom.id}"
+                                                th:selected="${uom.id.equals(ingredient.unitOfMeasure.id)}"
+                                                th:text="${uom.unitOfMeasure}">
+                                            Teaspoon
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-secondary" type="submit">Submit</button>
+            </form>
+        </div>
     </div>
 </div>
 </body>

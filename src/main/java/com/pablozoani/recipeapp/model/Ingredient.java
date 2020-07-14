@@ -15,7 +15,7 @@ public class Ingredient {
     // == fields ==
 
     @Id
-    @GeneratedValue(generator = "native")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
     @Column(nullable = false)
