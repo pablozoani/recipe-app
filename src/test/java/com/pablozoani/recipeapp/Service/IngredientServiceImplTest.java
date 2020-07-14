@@ -90,4 +90,20 @@ class IngredientServiceImplTest {
         assertEquals(r.getIngredients().iterator().next().getId(), output.getId());
         assertEquals(17L, output.getRecipeId());
     }
+
+    @Test
+    void deleteByRecipeIdAndIngredientId() {
+        Recipe recipe = new Recipe();
+        Ingredient ingredient = new Ingredient();
+        ingredient.setId(7L);
+        recipe.addIngredients(ingredient);
+        Optional<Recipe> recipeOptional = Optional.of(recipe);
+
+        Mockito.when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        ingredientService.deleteByRecipeIdAndIngredientId(6L, 7L);
+
+        Mockito.verify(recipeRepository, times(1)).findById(anyLong());
+        Mockito.verify(recipeRepository, times(1)).save(any(Recipe.class));
+    }
 }

@@ -79,6 +79,12 @@ public class Recipe {
         return this;
     }
 
+    public Recipe deleteIngredient(Ingredient ingredient) {
+        this.ingredients.remove(ingredient);
+        ingredient.setRecipe(null);
+        return this;
+    }
+
     public Recipe addCategories(Category... categories) {
         for (Category category : categories) {
             this.categories.add(category);
