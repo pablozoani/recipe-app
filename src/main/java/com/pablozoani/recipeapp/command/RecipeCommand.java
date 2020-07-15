@@ -36,4 +36,6 @@ public class RecipeCommand {
     private String source;
 
     private String url;
+
+    private Byte[] image;
 }

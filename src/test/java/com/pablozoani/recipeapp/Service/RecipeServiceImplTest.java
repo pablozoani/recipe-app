@@ -1,10 +1,12 @@
 package com.pablozoani.recipeapp.Service;
 
+import com.pablozoani.recipeapp.exception.NotFoundException;
 import com.pablozoani.recipeapp.model.Recipe;
 import com.pablozoani.recipeapp.repository.RecipeRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -13,6 +15,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class RecipeServiceImplTest {
@@ -41,6 +44,17 @@ class RecipeServiceImplTest {
         Recipe recipe2 = recipeService.findById(20l);
         assertEquals(recipe, recipe2);
         verify(recipeRepository, times(1)).findById(anyLong());
+    }
+
+    @Test
+    void getRecipeByIdNotFoundTest() {
+        Exception exception = assertThrows(NotFoundException.class, () -> {
+            Optional<Recipe> recipeOptional = Optional.empty();
+
+            when(recipeRepository.findById(ArgumentMatchers.anyLong())).thenReturn(recipeOptional);
+
+            Recipe recipeReturned = recipeService.findById(1L);
+        });
     }
 
     @Test

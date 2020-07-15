@@ -31,12 +31,17 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-8">
-                            <h1 class="card-title" th:text="'My Recipes'">My
-                                Recipes</h1>
+                            <h1 class="card-title"
+                                th:text="'My Recipes'">
+                                My Recipes
+                            </h1>
                         </div>
                         <div class="col-md-4 align-self-center text-right">
-                            <a href="#" role="button"
-                               th:href="@{/recipe/new}">New</a>
+                            <a href="#"
+                               role="button"
+                               th:href="@{/recipe/new}">
+                                New
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -54,7 +59,9 @@
                             </tr>
                             </thead>
                             <tr th:each="recipe : ${recipes}">
-                                <td th:text="${recipe.id}">id</td>
+                                <td th:text="${recipe.id}">
+                                    id
+                                </td>
                                 <td th:text="${recipe.description}">
                                     Description
                                 </td>

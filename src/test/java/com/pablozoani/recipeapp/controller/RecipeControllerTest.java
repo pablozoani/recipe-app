@@ -2,14 +2,17 @@ package com.pablozoani.recipeapp.controller;
 
 import com.pablozoani.recipeapp.Service.RecipeService;
 import com.pablozoani.recipeapp.command.RecipeCommand;
+import com.pablozoani.recipeapp.exception.NotFoundException;
 import com.pablozoani.recipeapp.model.Recipe;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -42,6 +45,13 @@ public class RecipeControllerTest {
                .andExpect(status().isOk())
                .andExpect(model().attributeExists("recipe"))
                .andExpect(view().name("recipe/show"));
+    }
+
+    @Test
+    void getRecipeNotFoundException() throws Exception {
+        Mockito.when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/show"))
+               .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
     @Test

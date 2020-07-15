@@ -36,12 +36,21 @@
                                 Categories:
                             </h5>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-4">
                             <ul th:each="category : ${recipe.categories}">
                                 <li th:text="${category.getCategoryName()}">
-                                    category one
+                                    category
                                 </li>
                             </ul>
+                        </div>
+                        <div class="col-md-3 offset-md-1 align-self-start"
+                             th:if="${recipe.image != null}">
+                            <img src="../../static/images/Guacamole.jpg"
+                                 th:src="@{'/recipe/' + ${recipe.id} + '/recipeimage'}"
+                                 width="96"
+                                 height="96"
+                                 alt="recipe image"
+                                 title="recipe image">
                         </div>
                     </div>
                     <div class="row">
@@ -117,7 +126,8 @@
                     </div>
                 </div>
             </div>
-            <div class="card" style="margin-bottom: 1rem;">
+            <div class="card"
+                 style="margin-bottom: 1rem;">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-10">
@@ -126,7 +136,8 @@
                             </h1>
                         </div>
                         <div class="col-md-2 align-self-center">
-                            <a class="btn btn-secondary" href="#"
+                            <a class="btn btn-secondary"
+                               href="#"
                                th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}"
                                role="button">
                                 view
@@ -138,8 +149,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <ul th:each="ingredient : ${recipe.ingredients}">
-                                <li
-                                        th:text="${(ingredient.description + ', ' + ingredient.amount + ' ' + ingredient.unitOfMeasure.unitOfMeasure)}">
+                                <li th:text="${(ingredient.description + ', ' + ingredient.amount + ' ' + ingredient.unitOfMeasure.unitOfMeasure)}">
                                     1 cup of milk
                                 </li>
                             </ul>
@@ -147,7 +157,8 @@
                     </div>
                 </div>
             </div>
-            <div class="card" style="margin-bottom: 1rem;">
+            <div class="card"
+                 style="margin-bottom: 1rem;">
                 <div class="card-header">
                     <h1 class="card-title">
                         Directions
@@ -173,7 +184,8 @@
                     </div>
                 </div>
             </div>
-            <div class="card" style="margin-bottom: 1rem;">
+            <div class="card"
+                 style="margin-bottom: 1rem;">
                 <div class="card-header">
                     <h1 class="card-title">
                         Notes

@@ -41,6 +41,7 @@ public class CommandToRecipe implements Converter<RecipeCommand, Recipe> {
         output.setCookTime(source.getCookTime());
         output.setSource(source.getSource());
         output.setDescription(source.getDescription());
+        output.setImage(source.getImage());
         output.setNotes(commandToNotes.convert(source.getNotes()));
         if (source.getCategories() != null && source.getCategories().size() > 0) {
             source.getCategories()

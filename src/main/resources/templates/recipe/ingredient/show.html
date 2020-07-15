@@ -41,13 +41,10 @@
                                     Description
                                 </th>
                                 <th>
-                                    View
+                                    Amount
                                 </th>
                                 <th>
-                                    Update
-                                </th>
-                                <th>
-                                    Delete
+                                    Unit of measure
                                 </th>
                             </tr>
                             </thead>
@@ -56,9 +53,14 @@
                                 <td th:text="${ingredient.id}">
                                     17
                                 </td>
-                                <td th:text="${ingredient.amount} + ' ' + ${ingredient.unitOfMeasure.unitOfMeasure} +
-                                    ' ' + ${ingredient.description}">
-                                    ingredient data
+                                <td th:text="${ingredient.description}">
+                                    description
+                                </td>
+                                <td th:text="${ingredient.amount}">
+                                    amount
+                                </td>
+                                <td th:text="${ingredient.unitOfMeasure.unitOfMeasure}">
+                                    unit of measure
                                 </td>
                             </tr>
                             </tbody>

@@ -3,6 +3,7 @@ package com.pablozoani.recipeapp.Service;
 import com.pablozoani.recipeapp.command.RecipeCommand;
 import com.pablozoani.recipeapp.converter.fromcommand.CommandToRecipe;
 import com.pablozoani.recipeapp.converter.tocommand.RecipeToCommand;
+import com.pablozoani.recipeapp.exception.NotFoundException;
 import com.pablozoani.recipeapp.model.Recipe;
 import com.pablozoani.recipeapp.repository.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +42,8 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe findById(Long id) {
-        return recipeRepository.findById(id).get();
+        return recipeRepository.findById(id)
+                               .orElseThrow(() -> new NotFoundException("Recipe Not Found"));
     }
 
     @Transactional
