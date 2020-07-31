@@ -44,12 +44,13 @@ public class IngredientServiceImpl implements IngredientService {
             throw new RuntimeException(getClass().getSimpleName() + "/findByRecipeIdAndId()/1");
         }
 
-        Optional<IngredientCommand> ingredientCommand = recipeOptional.get().getIngredients()
-                                                                      .stream()
-                                                                      .filter(
-                                                                          ingredient -> ingredient.getId().equals(id))
-                                                                      .map(ingredientToCommand::convert)
-                                                                      .findFirst();
+        Optional<IngredientCommand> ingredientCommand = recipeOptional
+            .get()
+            .getIngredients()
+            .stream()
+            .filter(ingredient -> ingredient.getId().equals(id))
+            .map(ingredientToCommand::convert)
+            .findFirst();
 
         if (!ingredientCommand.isPresent()) {
             // TODO implement error handling
@@ -104,9 +105,10 @@ public class IngredientServiceImpl implements IngredientService {
                                 .filter(ingredient -> Objects
                                     .equals(ingredient.getDescription(), ingredientCommand.getDescription()))
                                 .filter(ingredient -> Objects
-                                    .equals(ingredient.getAmount(), ingredientCommand.getDescription()))
-                                .filter(ingredient -> Objects.equals(ingredient.getUnitOfMeasure().getId(),
-                                                                     ingredientCommand.getUnitOfMeasure().getId()))
+                                    .equals(ingredient.getAmount(), ingredientCommand.getAmount()))
+                                .filter(ingredient -> Objects
+                                    .equals(ingredient.getUnitOfMeasure().getId(), ingredientCommand.getUnitOfMeasure()
+                                                                                                    .getId()))
                                 .findFirst()
                                 .orElseThrow(() -> new RuntimeException(
                                     getClass().getSimpleName() + " - saveIngredientCommand() - 3.1")));
