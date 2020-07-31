@@ -2,14 +2,13 @@ package com.pablozoani.recipeapp.controller;
 
 import com.pablozoani.recipeapp.Service.RecipeService;
 import com.pablozoani.recipeapp.command.RecipeCommand;
+import com.pablozoani.recipeapp.exception.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @Controller
@@ -55,5 +54,11 @@ public class RecipeController {
         log.debug("saveOrUpdateRecipe() called");
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
         return "redirect:/recipe/" + savedCommand.getId() + "/show";
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFound(Exception exception) {
+        log.error("404 Not Found");
+        return new ModelAndView("/recipe/404error", "exception", exception);
     }
 }

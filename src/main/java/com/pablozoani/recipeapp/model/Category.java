@@ -19,7 +19,6 @@ public class Category {
     @GeneratedValue(generator = "native")
     protected Long id;
 
-
     @Column(name = "category_name", nullable = false, unique = true)
     protected String categoryName;
 
