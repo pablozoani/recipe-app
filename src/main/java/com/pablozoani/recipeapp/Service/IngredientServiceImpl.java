@@ -45,12 +45,12 @@ public class IngredientServiceImpl implements IngredientService {
         }
 
         Optional<IngredientCommand> ingredientCommand = recipeOptional
-            .get()
-            .getIngredients()
-            .stream()
-            .filter(ingredient -> ingredient.getId().equals(id))
-            .map(ingredientToCommand::convert)
-            .findFirst();
+                .get()
+                .getIngredients()
+                .stream()
+                .filter(ingredient -> ingredient.getId().equals(id))
+                .map(ingredientToCommand::convert)
+                .findFirst();
 
         if (!ingredientCommand.isPresent()) {
             // TODO implement error handling
@@ -74,20 +74,19 @@ public class IngredientServiceImpl implements IngredientService {
         Recipe recipe = recipeOptional.get();
 
         Optional<Ingredient> ingredientOptional = recipe
-            .getIngredients()
-            .stream()
-            .filter(ingredient -> ingredient.getId().equals(ingredientCommand.getId()))
-            .findFirst();
+                .getIngredients()
+                .stream()
+                .filter(ingredient -> ingredient.getId().equals(ingredientCommand.getId()))
+                .findFirst();
 
         if (ingredientOptional.isPresent()) {
             Ingredient ingredient = ingredientOptional.get();
             ingredient.setAmount(ingredientCommand.getAmount());
             ingredient.setDescription(ingredientCommand.getDescription());
             ingredient.setUnitOfMeasure(unitOfMeasureRepository.findById(ingredientCommand.getUnitOfMeasure()
-                                                                                          .getId())
-                                                               .orElseThrow(() -> new RuntimeException(
-                                                                   getClass().getSimpleName() +
-                                                                   " - saveIngredientCommand() - 2")));
+                    .getId())
+                    .orElseThrow(() ->
+                            new RuntimeException(getClass().getSimpleName() + " - saveIngredientCommand() - 2")));
         } else {
             log.debug(getClass().getSimpleName() + " - saveIngredientCommand() - 2.1");
             recipe.addIngredients(commandToIngredient.convert(ingredientCommand));
@@ -100,18 +99,18 @@ public class IngredientServiceImpl implements IngredientService {
 
         // todo check for fail
         return ingredientToCommand
-            .convert(savedRecipe.getIngredients()
-                                .stream()
-                                .filter(ingredient -> Objects
-                                    .equals(ingredient.getDescription(), ingredientCommand.getDescription()))
-                                .filter(ingredient -> Objects
-                                    .equals(ingredient.getAmount(), ingredientCommand.getAmount()))
-                                .filter(ingredient -> Objects
-                                    .equals(ingredient.getUnitOfMeasure().getId(), ingredientCommand.getUnitOfMeasure()
-                                                                                                    .getId()))
-                                .findFirst()
-                                .orElseThrow(() -> new RuntimeException(
-                                    getClass().getSimpleName() + " - saveIngredientCommand() - 3.1")));
+                .convert(savedRecipe.getIngredients()
+                        .stream()
+                        .filter(ingredient -> Objects
+                                .equals(ingredient.getDescription(), ingredientCommand.getDescription()))
+                        .filter(ingredient -> Objects
+                                .equals(ingredient.getAmount(), ingredientCommand.getAmount()))
+                        .filter(ingredient -> Objects
+                                .equals(ingredient.getUnitOfMeasure().getId(), ingredientCommand.getUnitOfMeasure()
+                                        .getId()))
+                        .findFirst()
+                        .orElseThrow(() -> new RuntimeException(
+                                getClass().getSimpleName() + " - saveIngredientCommand() - 3.1")));
     }
 
     @Override
@@ -120,10 +119,10 @@ public class IngredientServiceImpl implements IngredientService {
         if (recipeOptional.isPresent()) {
             Recipe recipe = recipeOptional.get();
             Optional<Ingredient> ingredientOptional = recipe
-                .getIngredients()
-                .stream()
-                .filter(recipeIngredients -> recipeIngredients.getId().equals(ingredientId))
-                .findFirst();
+                    .getIngredients()
+                    .stream()
+                    .filter(recipeIngredients -> recipeIngredients.getId().equals(ingredientId))
+                    .findFirst();
             if (ingredientOptional.isPresent()) {
                 Ingredient ingredient = ingredientOptional.get();
                 recipe.deleteIngredient(ingredient);

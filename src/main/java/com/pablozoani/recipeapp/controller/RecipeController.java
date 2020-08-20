@@ -7,12 +7,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Slf4j
 @Controller
 public class RecipeController {
+
+    private static final String RECIPE_RECIPEFORM_URL = "recipe/recipeform";
 
     private final RecipeService recipeService;
 
@@ -25,7 +30,7 @@ public class RecipeController {
     public String newRecipe(Model model) {
         log.debug("newRecipe() called");
         model.addAttribute("recipe", new RecipeCommand());
-        return "recipe/recipeform";
+        return RECIPE_RECIPEFORM_URL;
     }
 
     @GetMapping("/recipe/{id}/show")
@@ -39,7 +44,7 @@ public class RecipeController {
     public String updateRecipe(@PathVariable String id, Model model) {
         log.debug("updateRecipe() called");
         model.addAttribute("recipe", recipeService.findRecipeCommandById(Long.valueOf(id)));
-        return "recipe/recipeform";
+        return RECIPE_RECIPEFORM_URL;
     }
 
     @GetMapping("/recipe/{id}/delete")
@@ -50,7 +55,15 @@ public class RecipeController {
     }
 
     @PostMapping("/recipe/")
-    public String saveOrUpdateRecipe(@ModelAttribute RecipeCommand command) {
+    public String saveOrUpdateRecipe(@Valid @ModelAttribute("recipe") RecipeCommand command,
+                                     BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(objectError -> {
+                log.debug(objectError.toString());
+            });
+            model.addAttribute("recipe", command);
+            return RECIPE_RECIPEFORM_URL;
+        }
         log.debug("saveOrUpdateRecipe() called");
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
         return "redirect:/recipe/" + savedCommand.getId() + "/show";

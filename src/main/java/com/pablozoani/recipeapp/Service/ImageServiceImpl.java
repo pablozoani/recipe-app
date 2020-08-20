@@ -22,13 +22,15 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public void saveImageFile(Long recipeId, MultipartFile file) {
+
         Recipe recipe = recipeRepository
-            .findById(recipeId)
-            .orElseThrow(() ->  new RuntimeException(getClass().getSimpleName() + " - saveImageFile() - 1"));
+                .findById(recipeId)
+                .orElseThrow(() -> new RuntimeException(getClass().getSimpleName() + " - saveImageFile() - 1"));
 
         try {
 
             log.debug(getClass().getSimpleName() + " - saveImageFile() - 1");
+
             log.debug("Parameter name=[" + file.getName() + "], Content type=[" + file.getContentType() + "]");
 
             Byte[] bytes = new Byte[file.getBytes().length];
@@ -38,9 +40,11 @@ public class ImageServiceImpl implements ImageService {
             }
 
             recipe.setImage(bytes);
+
             recipeRepository.save(recipe);
 
         } catch (IOException exc) {
+
             exc.printStackTrace();
         }
     }

@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class RecipeControllerTest {
+class RecipeControllerTest {
 
     @Mock
     RecipeService recipeService;
@@ -73,9 +73,20 @@ public class RecipeControllerTest {
 
         mockMvc
             .perform(MockMvcRequestBuilders.post("/recipe/")
-                                           .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                                           .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                                           .param("url", "http://abcd.com").param("description", "more text"))
             .andExpect(status().is3xxRedirection())
             .andExpect(view().name("redirect:/recipe/2/show"));
+    }
+
+    @Test
+    void testPostNewRecipeFormValidationFail() throws Exception {
+        when(recipeService.saveRecipeCommand(any())).thenReturn(new RecipeCommand());
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/recipe/")
+                                              .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+            .andExpect(status().isOk())
+            .andExpect(view().name("recipe/recipeform"));
     }
 
     @Test
