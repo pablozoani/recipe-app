@@ -4,6 +4,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: recipe_prod_user
     password: some_password
+  h2:
+    console:
+      enabled: false
   jpa:
     show-sql: false
     properties:

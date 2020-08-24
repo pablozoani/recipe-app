@@ -4,6 +4,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: recipe_dev_user
     password: some_password
+  h2:
+    console:
+      enabled: false
   jpa:
     hibernate.ddl-auto: validate
     show-sql: true

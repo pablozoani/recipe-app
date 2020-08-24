@@ -18,7 +18,7 @@ spring:
 
 logging:
   level:
-    root: error
+    root: warn
     com.pablozoani.recipeapp: debug
     org.hibernate: info
     org.springframework: info
