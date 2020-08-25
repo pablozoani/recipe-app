@@ -29,7 +29,7 @@ class UnitOfMeasureToCommandTest {
     @Test
     void convert() {
         UnitOfMeasure input = new UnitOfMeasure();
-        input.setId(132L);
+        input.setId("132L");
         input.setUnitOfMeasure("unit of measure...");
 
         UnitOfMeasureCommand output = unitOfMeasureToCommand.convert(input);

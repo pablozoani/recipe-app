@@ -31,13 +31,13 @@ class ImageServiceImplTest {
         MultipartFile multipartFile =
             new MockMultipartFile("imagefile", "testing.txt", "text/plain", "pablo zoani".getBytes());
         Recipe recipe = new Recipe();
-        recipe.setId(7L);
+        recipe.setId("7L");
         Optional<Recipe> recipeOptional = Optional.of(recipe);
 
-        Mockito.when(recipeRepository.findById(ArgumentMatchers.anyLong())).thenReturn(recipeOptional);
+        Mockito.when(recipeRepository.findById(ArgumentMatchers.anyString())).thenReturn(recipeOptional);
         ArgumentCaptor<Recipe> argumentCaptor = ArgumentCaptor.forClass(Recipe.class);
 
-        imageService.saveImageFile(7l, multipartFile);
+        imageService.saveImageFile("7l", multipartFile);
 
         Mockito.verify(recipeRepository, Mockito.times(1)).save(argumentCaptor.capture());
 

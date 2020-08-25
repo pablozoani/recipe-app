@@ -1,20 +1,23 @@
 package com.pablozoani.recipeapp.model;
 
 import lombok.Data;
-
-import javax.persistence.*;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Entity
-@Table(name = "unit_of_measure")
+@NoArgsConstructor
+@Document
 public class UnitOfMeasure {
 
     // == fields ==
 
     @Id
-    @GeneratedValue(generator = "native")
-    protected Long id;
+    protected String id;
 
-    @Column(name = "unit_of_measure", nullable = false, unique = true)
     protected String unitOfMeasure;
+
+    public UnitOfMeasure(String unitOfMeasure) {
+        this.unitOfMeasure = unitOfMeasure;
+    }
 }

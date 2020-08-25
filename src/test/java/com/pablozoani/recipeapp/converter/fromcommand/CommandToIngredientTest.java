@@ -35,9 +35,9 @@ class CommandToIngredientTest {
     @Test
     void convert() {
         IngredientCommand input = new IngredientCommand();
-        input.setId(14L);
+        input.setId("abcd");
         UnitOfMeasureCommand unitOfMeasureCommand = new UnitOfMeasureCommand();
-        unitOfMeasureCommand.setId(6L);
+        unitOfMeasureCommand.setId("abcde");
         unitOfMeasureCommand.setUnitOfMeasure("cups");
         input.setUnitOfMeasure(unitOfMeasureCommand);
         input.setAmount(BigDecimal.valueOf(5L));
@@ -45,24 +45,24 @@ class CommandToIngredientTest {
 
         Ingredient output = commandToIngredient.convert(input);
 
-        assertEquals(14L, output.getId());
+        assertEquals("abcd", output.getId());
         assertEquals(BigDecimal.valueOf(5L), output.getAmount());
         assertEquals("description...", output.getDescription());
         assertEquals("cups", output.getUnitOfMeasure().getUnitOfMeasure());
-        assertEquals(6L, output.getUnitOfMeasure().getId());
+        assertEquals("abcde", output.getUnitOfMeasure().getId());
     }
 
     @Test
     void convertWithNullUnitOfMeasure() {
         IngredientCommand input = new IngredientCommand();
-        input.setId(14L);
+        input.setId("abcd");
         input.setAmount(BigDecimal.valueOf(5L));
         input.setDescription("description...");
 
         Ingredient output = commandToIngredient.convert(input);
 
         assertNull(output.getUnitOfMeasure());
-        assertEquals(14L, output.getId());
+        assertEquals("abcd", output.getId());
         assertEquals(BigDecimal.valueOf(5L), output.getAmount());
         assertEquals("description...", output.getDescription());
     }

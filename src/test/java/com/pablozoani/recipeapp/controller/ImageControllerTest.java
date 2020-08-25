@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 
 class ImageControllerTest {
 
@@ -41,15 +41,15 @@ class ImageControllerTest {
     @Test
     void getImageForm() throws Exception {
         RecipeCommand recipeCommand = new RecipeCommand();
-        recipeCommand.setId(6L);
+        recipeCommand.setId("abcd");
 
-        Mockito.when(recipeService.findRecipeCommandById(anyLong())).thenReturn(recipeCommand);
+        Mockito.when(recipeService.findRecipeCommandById(anyString())).thenReturn(recipeCommand);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/recipe/6/image"))
                .andExpect(MockMvcResultMatchers.status().isOk())
                .andExpect(MockMvcResultMatchers.model().attributeExists("recipe"));
 
-        Mockito.verify(recipeService, Mockito.times(1)).findRecipeCommandById(ArgumentMatchers.anyLong());
+        Mockito.verify(recipeService, Mockito.times(1)).findRecipeCommandById(ArgumentMatchers.anyString());
     }
 
     @Test
@@ -62,13 +62,13 @@ class ImageControllerTest {
                .andExpect(MockMvcResultMatchers.header().string("Location", "/recipe/1/show"));
 
         Mockito.verify(imageService, Mockito.times(1))
-               .saveImageFile(ArgumentMatchers.anyLong(), ArgumentMatchers.any());
+               .saveImageFile(ArgumentMatchers.anyString(), ArgumentMatchers.any());
     }
 
     @Test
     void renderImageFromDB() throws Exception {
         RecipeCommand recipeCommand = new RecipeCommand();
-        recipeCommand.setId(4L);
+        recipeCommand.setId("abcd");
         String string = "abcde";
         Byte[] bytes = new Byte[string.getBytes().length];
         for (int i = 0; i < bytes.length; i++) {
@@ -77,7 +77,7 @@ class ImageControllerTest {
 
         recipeCommand.setImage(bytes);
 
-        Mockito.when(recipeService.findRecipeCommandById(ArgumentMatchers.anyLong())).thenReturn(recipeCommand);
+        Mockito.when(recipeService.findRecipeCommandById(ArgumentMatchers.anyString())).thenReturn(recipeCommand);
 
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get("/recipe/4/recipeimage"))
                                                   .andExpect(MockMvcResultMatchers.status().isOk())

@@ -4,9 +4,9 @@ import com.pablozoani.recipeapp.command.IngredientCommand;
 
 public interface IngredientService {
 
-    IngredientCommand findByRecipeIdAndId(Long recipeId, Long id);
+    IngredientCommand findByRecipeIdAndId(String recipeId, String id);
 
     IngredientCommand saveIngredientCommand(IngredientCommand ingredientCommand);
 
-    void deleteByRecipeIdAndIngredientId(Long recipeId, Long ingredientId);
+    void deleteByRecipeIdAndIngredientId(String recipeId, String ingredientId);
 }

@@ -29,12 +29,12 @@ class CommandToCategoryTest {
     @Test
     void convert() {
         CategoryCommand categoryCommand = new CategoryCommand();
-        categoryCommand.setId(12L);
+        categoryCommand.setId("abcd");
         categoryCommand.setCategoryName("Italian");
 
         Category output = commandToCategory.convert(categoryCommand);
 
-        assertEquals(12L, output.getId());
+        assertEquals("abcd", output.getId());
         assertEquals("Italian", output.getCategoryName());
     }
 }

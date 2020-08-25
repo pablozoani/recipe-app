@@ -29,7 +29,7 @@ class NotesToCommandTest {
     @Test
     void convert() {
         Notes input = new Notes();
-        input.setId(12l);
+        input.setId("12l");
         input.setRecipeNotes("recipe notes...");
 
         NotesCommand output = notesToCommand.convert(input);

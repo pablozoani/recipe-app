@@ -29,7 +29,7 @@ class CategoryToCommandTest {
     @Test
     void convert() {
         Category input = new Category();
-        input.setId(43l);
+        input.setId("43l");
         input.setCategoryName("category name...");
 
         CategoryCommand output = categoryToCommand.convert(input);

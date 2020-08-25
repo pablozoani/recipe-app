@@ -29,13 +29,13 @@ class CommandToNotesTest {
     @Test
     void convert() {
         NotesCommand input = new NotesCommand();
-        input.setId(8L);
+        input.setId("abc");
         input.setRecipeNotes("notes...");
 
         Notes output = commandToNotes.convert(input);
 
         assertNotNull(output);
-        assertEquals(8L, output.getId());
+        assertEquals("abc", output.getId());
         assertEquals("notes...", output.getRecipeNotes());
     }
 }

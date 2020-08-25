@@ -35,7 +35,7 @@ public class IngredientController {
 
     @GetMapping("/recipe/{id}/ingredients")
     public String listIngredients(@PathVariable String id, Model model) {
-        RecipeCommand command = recipeService.findRecipeCommandById(Long.valueOf(id));
+        RecipeCommand command = recipeService.findRecipeCommandById(id);
         log.debug("Command Recipe Ingredients: " + command.getIngredients());
         model.addAttribute("recipe", command);
         return "recipe/ingredient/list";
@@ -45,7 +45,7 @@ public class IngredientController {
     public String showRecipeIngredient(@PathVariable String recipeId, @PathVariable String id,
                                        Model model) {
         model.addAttribute("ingredient",
-                           ingredientService.findByRecipeIdAndId(Long.valueOf(recipeId), Long.valueOf(id)));
+                           ingredientService.findByRecipeIdAndId(recipeId, id));
         return "recipe/ingredient/show";
     }
 
@@ -54,7 +54,7 @@ public class IngredientController {
                                          @PathVariable String ingredientId,
                                          Model model) {
         IngredientCommand ingredientCommand = ingredientService
-            .findByRecipeIdAndId(Long.valueOf(recipeId), Long.valueOf(ingredientId));
+            .findByRecipeIdAndId(recipeId, ingredientId);
         model.addAttribute("ingredient", ingredientCommand);
         model.addAttribute("unitOfMeasureList", unitOfMeasureService.findAll());
         return "/recipe/ingredient/ingredientform";
@@ -72,7 +72,7 @@ public class IngredientController {
     @GetMapping("/recipe/{recipeId}/ingredient/new")
     public String newIngredientForm(@PathVariable String recipeId, Model model) {
         IngredientCommand ingredientCommand = new IngredientCommand();
-        RecipeCommand recipeCommand = recipeService.findRecipeCommandById(Long.valueOf(recipeId));
+        RecipeCommand recipeCommand = recipeService.findRecipeCommandById(recipeId);
         ingredientCommand.setRecipeId(recipeCommand.getId()); // throws null pointer if recipe doesn't exits. It is ok.
         ingredientCommand.setUnitOfMeasure(new UnitOfMeasureCommand());
         model.addAttribute("ingredient", ingredientCommand);
@@ -84,7 +84,7 @@ public class IngredientController {
     public String deleteIngredient(@PathVariable String recipeId,
                                    @PathVariable String ingredientId) {
         log.debug(getClass().getSimpleName() + " - deleteIngredient() - 1");
-        ingredientService.deleteByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(ingredientId));
+        ingredientService.deleteByRecipeIdAndIngredientId(recipeId, ingredientId);
         return "redirect:/recipe/" + recipeId + "/ingredients";
     }
 }

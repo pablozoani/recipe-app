@@ -37,8 +37,8 @@ class UnitOfMeasureServiceImplTest {
         Set<UnitOfMeasure> input = new HashSet<>();
         UnitOfMeasure uom1 = new UnitOfMeasure();
         UnitOfMeasure uom2 = new UnitOfMeasure();
-        uom1.setId(1L);
-        uom2.setId(2L);
+        uom1.setId("1L");
+        uom2.setId("2L");
         input.add(uom1);
         input.add(uom2);
 

@@ -37,7 +37,7 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public IngredientCommand findByRecipeIdAndId(Long recipeId, Long id) {
+    public IngredientCommand findByRecipeIdAndId(String recipeId, String id) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
         if (!recipeOptional.isPresent()) {
             // TODO implement error handling
@@ -56,8 +56,9 @@ public class IngredientServiceImpl implements IngredientService {
             // TODO implement error handling
             throw new RuntimeException(getClass().getSimpleName() + "/findByRecipeIdAndId()/2");
         }
-
-        return ingredientCommand.orElse(null);
+        IngredientCommand ingredientCommand1 = ingredientCommand.orElse(null);
+        ingredientCommand1.setRecipeId(recipeId);
+        return ingredientCommand1;
     }
 
     @Transactional
@@ -98,7 +99,7 @@ public class IngredientServiceImpl implements IngredientService {
         log.debug(getClass().getSimpleName() + " - saveIngredientCommand() - 3");
 
         // todo check for fail
-        return ingredientToCommand
+        IngredientCommand output =  ingredientToCommand
                 .convert(savedRecipe.getIngredients()
                         .stream()
                         .filter(ingredient -> Objects
@@ -111,10 +112,12 @@ public class IngredientServiceImpl implements IngredientService {
                         .findFirst()
                         .orElseThrow(() -> new RuntimeException(
                                 getClass().getSimpleName() + " - saveIngredientCommand() - 3.1")));
+        output.setRecipeId(savedRecipe.getId());
+        return output;
     }
 
     @Override
-    public void deleteByRecipeIdAndIngredientId(Long recipeId, Long ingredientId) {
+    public void deleteByRecipeIdAndIngredientId(String recipeId, String ingredientId) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
         if (recipeOptional.isPresent()) {
             Recipe recipe = recipeOptional.get();

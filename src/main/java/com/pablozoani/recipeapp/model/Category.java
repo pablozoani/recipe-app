@@ -2,28 +2,33 @@ package com.pablozoani.recipeapp.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @EqualsAndHashCode(exclude = {"recipes"})
-@Entity
-@Table(name = "category")
+@NoArgsConstructor
+@Document
 public class Category {
 
     // == fields ==
 
     @Id
-    @GeneratedValue(generator = "native")
-    protected Long id;
+    protected String id;
 
-    @Column(name = "category_name", nullable = false, unique = true)
     protected String categoryName;
 
     // == relationships ==
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "categories")
+    @DBRef
     protected Set<Recipe> recipes = new HashSet<>();
+
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
+    }
 }

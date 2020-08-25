@@ -10,15 +10,15 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class RecipeCommand {
 
-    private Set<CategoryCommand> categories = new HashSet<>();
+    private List<CategoryCommand> categories = new ArrayList<>();
 
     @Min(1)
     @Max(999)
@@ -32,9 +32,9 @@ public class RecipeCommand {
 
     private String directions;
 
-    private Long id;
+    private String id;
 
-    private Set<IngredientCommand> ingredients = new HashSet<>();
+    private List<IngredientCommand> ingredients = new ArrayList<>();
 
     private NotesCommand notes;
 

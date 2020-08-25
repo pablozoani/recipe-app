@@ -3,30 +3,27 @@ package com.pablozoani.recipeapp.model;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "recipe")
+@Document
 public class Recipe {
 
     // == fields ==
 
     @Id
-    @GeneratedValue(generator = "native")
-    protected Long id;
+    protected String id;
 
-    @Column(nullable = false)
     protected String description;
 
-    @Column(name = "preparation_time", nullable = false)
     protected String prepTime;
 
-    @Column(name = "cook_time")
     protected String cookTime;
 
     protected Integer servings;
@@ -35,28 +32,19 @@ public class Recipe {
 
     protected String url;
 
-    @Lob
-    @Column(nullable = false)
     protected String directions;
 
-    @Enumerated(EnumType.STRING)
     protected Difficulty difficulty;
 
-    @Lob
     protected Byte[] image;
 
     // == relationships ==
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     protected Notes notes;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "recipe")
     protected Set<Ingredient> ingredients = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "recipe_category",
-               joinColumns = @JoinColumn(name = "recipe_id"),
-               inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @DBRef
     protected Set<Category> categories = new HashSet<>();
 
     public Recipe setNotes(@NonNull Notes notes) {
@@ -64,7 +52,7 @@ public class Recipe {
             throw new RuntimeException("this note belongs to a recipe");
         }
         this.notes = notes;
-        notes.setRecipe(this);
+        //notes.setRecipe(this);
         return this;
     }
 
@@ -73,7 +61,7 @@ public class Recipe {
             if (!(ingredient.getRecipe() == null)) {
                 throw new RuntimeException("ingredient already belongs to a recipe");
             }
-            ingredient.setRecipe(this);
+            //ingredient.setRecipe(this);
             this.ingredients.add(ingredient);
         }
         return this;

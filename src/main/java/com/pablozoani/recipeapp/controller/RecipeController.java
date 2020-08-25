@@ -36,27 +36,30 @@ public class RecipeController {
     @GetMapping("/recipe/{id}/show")
     public String showById(@PathVariable String id, Model model) {
         log.debug("showById() called");
-        model.addAttribute("recipe", recipeService.findById(Long.parseLong(id)));
+        model.addAttribute("recipe", recipeService.findById(id));
         return "recipe/show";
     }
 
     @GetMapping("/recipe/{id}/update")
     public String updateRecipe(@PathVariable String id, Model model) {
         log.debug("updateRecipe() called");
-        model.addAttribute("recipe", recipeService.findRecipeCommandById(Long.valueOf(id)));
+        RecipeCommand recipeCommand = recipeService.findRecipeCommandById(id);
+        log.debug(recipeCommand.getCategories().toString());
+        model.addAttribute("recipe", recipeCommand);
         return RECIPE_RECIPEFORM_URL;
     }
 
     @GetMapping("/recipe/{id}/delete")
     public String deleteById(@PathVariable String id) {
         log.debug("deleteById() called, id: " + id);
-        recipeService.deleteById(Long.valueOf(id));
+        recipeService.deleteById(id);
         return "redirect:/";
     }
 
     @PostMapping("/recipe/")
     public String saveOrUpdateRecipe(@Valid @ModelAttribute("recipe") RecipeCommand command,
                                      BindingResult bindingResult, Model model) {
+        log.debug("saveOrUpdateRecipe()");
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(objectError -> {
                 log.debug(objectError.toString());

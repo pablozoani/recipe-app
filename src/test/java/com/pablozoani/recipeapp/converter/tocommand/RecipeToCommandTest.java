@@ -48,9 +48,9 @@ class RecipeToCommandTest {
         input.setDifficulty(Difficulty.HARD);
         input.setDirections("directions...");
         input.setUrl("url...");
-        input.setId(25L);
+        input.setId("25L");
         Notes notes = new Notes();
-        notes.setId(32L);
+        notes.setId("32L");
         input.setNotes(notes);
         input.getIngredients().add(new Ingredient());
         input.getIngredients().add(new Ingredient());
@@ -61,7 +61,7 @@ class RecipeToCommandTest {
 
         assertNotNull(output);
         assertEquals(input.getIngredients().size(), output.getIngredients().size());
-        assertEquals(input.getCategories().size(), output.getIngredients().size());
+        assertEquals(input.getCategories().size(), output.getCategories().size());
         assertEquals(input.getCookTime(), output.getCookTime());
         assertEquals(input.getPrepTime(), output.getPrepTime());
         assertEquals(input.getDescription(), output.getDescription());

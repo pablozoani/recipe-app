@@ -35,10 +35,10 @@ class IngredientToCommandTest {
     @Test
     void convert() {
         Ingredient input = new Ingredient();
-        input.setId(25L);
+        input.setId("25L");
         input.setDescription("description...");
         UnitOfMeasure unitOfMeasure = new UnitOfMeasure();
-        unitOfMeasure.setId(32L);
+        unitOfMeasure.setId("32L");
         input.setUnitOfMeasure(unitOfMeasure);
         input.setAmount(BigDecimal.valueOf(5L));
 

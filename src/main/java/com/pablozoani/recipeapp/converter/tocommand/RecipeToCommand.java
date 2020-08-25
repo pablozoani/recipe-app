@@ -45,15 +45,11 @@ public class RecipeToCommand implements Converter<Recipe, RecipeCommand> {
         output.setNotes(notesToCommand.convert(source.getNotes()));
         if (source.getIngredients() != null && source.getIngredients().size() > 0) {
             source.getIngredients()
-                  .forEach(ingredient -> {
-                      output.getIngredients().add(ingredientToCommand.convert(ingredient));
-                  });
+                  .forEach(ingredient -> output.getIngredients().add(ingredientToCommand.convert(ingredient)));
         }
         if (source.getCategories() != null && source.getCategories().size() > 0) {
             source.getCategories()
-                  .forEach(category -> {
-                      output.getCategories().add(categoryToCommand.convert(category));
-                  });
+                  .forEach(category -> output.getCategories().add(categoryToCommand.convert(category)));
         }
         return output;
     }

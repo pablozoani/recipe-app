@@ -29,7 +29,7 @@ class CommandToUnitOfMeasureTest {
     @Test
     void convert() {
         UnitOfMeasureCommand input = new UnitOfMeasureCommand();
-        input.setId(123L);
+        input.setId("abcde");
         input.setUnitOfMeasure("teaspoon");
 
         UnitOfMeasure output = commandToUnitOfMeasure.convert(input);

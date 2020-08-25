@@ -1,9 +1,6 @@
 package com.pablozoani.recipeapp.bootstrap;
 
-import com.pablozoani.recipeapp.model.Difficulty;
-import com.pablozoani.recipeapp.model.Ingredient;
-import com.pablozoani.recipeapp.model.Notes;
-import com.pablozoani.recipeapp.model.Recipe;
+import com.pablozoani.recipeapp.model.*;
 import com.pablozoani.recipeapp.repository.CategoryRepository;
 import com.pablozoani.recipeapp.repository.RecipeRepository;
 import com.pablozoani.recipeapp.repository.UnitOfMeasureRepository;
@@ -16,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 @Profile("default")
 @Slf4j
@@ -39,7 +37,28 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        saveCategories();
+        saveUnitOfMeasures();
         saveRecipes();
+    }
+
+    private void saveUnitOfMeasures() {
+        unitOfMeasureRepository.saveAll(Arrays.asList(new UnitOfMeasure("Teaspoon"),
+                new UnitOfMeasure("Tablespoon"), new UnitOfMeasure("Cups"), new UnitOfMeasure("Pinch"),
+                new UnitOfMeasure("Ounce"), new UnitOfMeasure("Units"), new UnitOfMeasure("Dash")
+                ));
+    }
+
+    private void saveCategories() {
+        Category cat1 = new Category();
+        cat1.setCategoryName("American");
+        Category cat2 = new Category();
+        cat2.setCategoryName("Italian");
+        Category cat3 = new Category();
+        cat3.setCategoryName("Mexican");
+        Category cat4 = new Category();
+        cat4.setCategoryName("Fast Food");
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4));
     }
 
     @Transactional

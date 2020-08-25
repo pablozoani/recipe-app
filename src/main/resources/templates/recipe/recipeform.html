@@ -240,6 +240,15 @@
                                                 1 Teaspoon of Sugar
                                             </li>
                                         </ul>
+                                        <div th:each="ingredient, idx : ${recipe.ingredients}">
+                                            <input type="hidden" th:field="*{ingredients[__${idx.index}__].id}">
+                                            <input type="hidden" th:field="*{ingredients[__${idx.index}__].description}">
+                                            <input type="hidden" th:field="*{ingredients[__${idx.index}__].amount}">
+                                            <input type="hidden" th:field="*{ingredients[__${idx.index}__].unitOfMeasure.id}">
+                                        </div>
+                                        <div th:each="cat, idx : ${recipe.categories}">
+                                            <input type="hidden" th:field="*{categories[__${idx.index}__].id}">
+                                        </div>
                                     </div>
                                 </div>
                             </div>

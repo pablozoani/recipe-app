@@ -38,12 +38,12 @@ class RecipeServiceImplTest {
     @Test
     void getRecipesById() {
         Recipe recipe = new Recipe();
-        recipe.setId(20l);
+        recipe.setId("20l");
         Optional<Recipe> recipeOptional = Optional.of(recipe);
-        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
-        Recipe recipe2 = recipeService.findById(20l);
+        when(recipeRepository.findById(anyString())).thenReturn(recipeOptional);
+        Recipe recipe2 = recipeService.findById("20l");
         assertEquals(recipe, recipe2);
-        verify(recipeRepository, times(1)).findById(anyLong());
+        verify(recipeRepository, times(1)).findById(anyString());
     }
 
     @Test
@@ -51,9 +51,9 @@ class RecipeServiceImplTest {
         Exception exception = assertThrows(NotFoundException.class, () -> {
             Optional<Recipe> recipeOptional = Optional.empty();
 
-            when(recipeRepository.findById(ArgumentMatchers.anyLong())).thenReturn(recipeOptional);
+            when(recipeRepository.findById(ArgumentMatchers.anyString())).thenReturn(recipeOptional);
 
-            Recipe recipeReturned = recipeService.findById(1L);
+            Recipe recipeReturned = recipeService.findById("1L");
         });
     }
 
@@ -72,8 +72,8 @@ class RecipeServiceImplTest {
 
     @Test
     void deleteById() {
-        Long id = 3L;
+        String id = "3L";
         recipeService.deleteById(id);
-        verify(recipeRepository, times(1)).deleteById(anyLong());
+        verify(recipeRepository, times(1)).deleteById(anyString());
     }
 }

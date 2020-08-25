@@ -2,33 +2,27 @@ package com.pablozoani.recipeapp.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(exclude = {"recipe"})
-@Entity
-@Table(name = "ingredient")
 public class Ingredient {
 
     // == fields ==
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+    protected String id = UUID.randomUUID().toString();
 
-    @Column(nullable = false)
     protected String description;
 
-    @Column(nullable = false)
     protected BigDecimal amount;
 
     // == relationships ==
 
-    @ManyToOne
     protected Recipe recipe;
 
-    @OneToOne
+    @DBRef
     protected UnitOfMeasure unitOfMeasure;
 }
